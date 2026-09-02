@@ -1,0 +1,42 @@
+name: Public Release Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate-public-surface:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Validate required release files
+        shell: bash
+        run: |
+          set -euo pipefail
+          required=(README.md FEATURES.md ARCHITECTURE.md SECURITY.md RELEASE_NOTES.md CONTRIBUTING.md LICENSE VERSION)
+          for file in "${required[@]}"; do
+            test -f "$file" || { echo "Missing required public file: $file"; exit 1; }
+          done
+          test "$(tr -d '\r\n' < VERSION)" = "0.13.0"
+
+      - name: Reject obvious committed secrets
+        shell: bash
+        run: |
+          set -euo pipefail
+          if grep -RInE --exclude-dir=.git --exclude='*.md' '(sk-[A-Za-z0-9_-]{20,}|gh[pousr]_[A-Za-z0-9]{20,}|BEGIN (RSA|OPENSSH|EC) PRIVATE KEY)' .; then
+            echo "Potential credential material detected in public repository."
+            exit 1
+          fi
+
+      - name: Confirm public/private boundary language
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -qi 'private' README.md
+          grep -qi 'server-side' SECURITY.md
