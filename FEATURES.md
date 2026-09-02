@@ -1,57 +1,70 @@
 # ForgeFlow AI Feature Matrix
 
-## Core workspace
+## Community Edition v0.14.0
 
-- Role-aware student/professor experience
-- Activities with planned / in-progress / completed lifecycle
-- Calendar and timeline views
-- Project detail pages and integration readiness
-- Project review/evaluation workflow
-- Immutable submission and release-preflight concepts
+The public repository now contains a runnable subset rather than documentation alone.
 
-## GitHub intelligence
+### Runnable public features
 
-- Repository status and contribution summaries
-- Commit and pull-request activity
-- Activity-to-GitHub evidence linking
-- Progress inference from linked implementation evidence
+- React community cockpit
+- FastAPI backend and interactive OpenAPI docs
+- project-health demo using explicit synthetic data
+- bounded lexical repository retrieval over public ForgeFlow documentation only
+- deterministic local debugging assistance with no external model call
+- governed demo actions using `propose -> approve/reject`
+- single-service Docker image serving the built React frontend from FastAPI
+- Docker Compose startup and `/health` readiness endpoint
+- backend API tests, frontend build validation and container smoke testing in GitHub Actions
+- public-surface checks for semantic versioning, boundary language and obvious committed credentials
 
-## AI engineering workspace
+### Intentionally not included in the public runtime
 
-- Persistent project chat and project snapshots
-- Roadmap replanning and task suggestions
-- Project memory and decision memory
-- Repository indexing and lexical retrieval-augmented context
-- Diff-aware code-review analysis
-- Log/error debugging assistance
-- Project health scoring
-- Daily and weekly intelligence briefs
-- Notifications derived from project state
-- Seven specialist roles: planner, project manager, code reviewer, debugger, progress tracker, GitHub agent, documentation agent
+- real users, team projects or production project state
+- sessions, private SQLite databases or grading/submission records
+- provider credentials or AI API tokens
+- production GitHub write credentials or autonomous GitHub actions
+- private memory, notification, orchestration or deployment state
+- unrestricted filesystem, shell or external-service access
 
-## Governed actions
+## Private upstream capabilities
 
-AI actions use a controlled lifecycle:
+The private ForgeFlow development platform contains a broader product surface, including role-aware student/professor workspaces, activity/calendar/timeline workflows, project review and submission flows, GitHub contribution intelligence, persistent AI project threads and memory, evidence-backed progress intelligence, project health/briefing workflows, multi-agent orchestration and governed production actions.
+
+Those capabilities are documented here only at a product/architecture level unless an explicitly sanitized implementation is added to the Community Edition.
+
+## Public retrieval boundary
+
+The runnable Community Edition repository query endpoint reads only these public files:
+
+- `README.md`
+- `FEATURES.md`
+- `ARCHITECTURE.md`
+- `SECURITY.md`
+
+It uses lexical token overlap, not embeddings or a vector database.
+
+## Governed action boundary
+
+The public demo preserves the control pattern without exposing production side effects:
 
 1. propose
-2. approve
-3. execute
+2. approve or reject
 
-Supported internal concepts include task creation, progress updates, decision recording and GitHub evidence linking. External GitHub write operations are server-controlled and require runtime credentials plus explicit approval.
+Community proposals are stored in process memory and do not mutate GitHub, external services, private project data or production state.
 
 ## Engineering quality
 
-- FastAPI backend
-- React + TypeScript frontend
-- SQLite migrations
-- pytest + coverage
-- ESLint + Prettier + TypeScript checks
-- Vitest unit tests
-- Playwright E2E
-- dependency audits
-- CodeQL on supported public/private configurations
-- pull-request CI gates
+Community v0.14.0 is validated with:
 
-## Public-edition boundary
+- Python 3.12
+- FastAPI
+- React + Vite
+- pytest
+- frontend production build
+- Docker image build
+- live container health smoke test
+- public secret-pattern scanning
 
-ForgeFlow AI Community Showcase is not a drop-in mirror of the private production repository. Sensitive operational surfaces, private data, runtime state and credentials are deliberately excluded.
+## Public/private principle
+
+ForgeFlow AI Community Edition is a curated open-source product surface, not a mirror of the private upstream. A feature moves into the public edition only when its code, data model, credentials and operational behavior are appropriate for public release.

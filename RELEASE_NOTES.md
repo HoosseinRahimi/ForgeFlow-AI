@@ -1,34 +1,44 @@
-# ForgeFlow AI v0.13.0 Community Showcase
+# ForgeFlow AI Release Notes
 
-This is the first curated public showcase milestone derived from the private ForgeFlow AI development platform.
+## v0.14.0 Community Edition
 
-## Included concepts
+v0.14.0 turns ForgeFlow AI from a documentation-only public showcase into a **runnable, privacy-safe Community Edition**.
 
-- Role-aware project workspace
-- Student/professor workflows
-- Project/activity tracking
-- GitHub contribution intelligence
-- Persistent AI project copilot
-- Repository indexing and bounded lexical RAG
-- Diff-aware code-review assistance
-- Debugging assistance from logs/errors plus repository context
-- Evidence-backed progress intelligence
-- Project health scoring
-- Daily and weekly project intelligence
-- Notifications derived from project state
-- Seven-specialist multi-agent orchestration
-- Governed AI action lifecycle: `propose -> approve -> execute`
-- FastAPI + React/TypeScript + SQLite architecture
-- CI, E2E and dependency-audit quality gates
+### Added
 
-## Deliberately excluded
+- React community cockpit
+- FastAPI community backend
+- `/health` readiness endpoint
+- synthetic project-health demo
+- bounded lexical retrieval over approved public documentation
+- deterministic local debugging assistant with no external model call
+- governed `propose -> approve/reject` action demo with no external side effects
+- single-service multi-stage Docker image
+- Docker Compose startup
+- backend API tests
+- frontend production build validation
+- Docker build/start/health smoke testing in GitHub Actions
+- branch-level Community CI for contributor changes
+- semantic version validation and obvious-secret scanning for the public surface
 
-This public milestone does not mirror private production state. It excludes real team/user data, runtime databases, sessions, submissions, grading state, credentials, private deployment configuration and internal operational data.
+### Security and privacy boundary
 
-## Current technical limits
+The runnable edition still excludes real team/user data, private runtime databases, sessions, submissions, grading records, provider tokens, production credentials, private GitHub write automation, private memory/orchestration state and internal deployment state.
 
-- Repository retrieval is lexical chunk retrieval, not embedding/vector semantic search.
-- Provider-backed AI behavior requires runtime provider credentials in deployments that enable it.
-- Governed GitHub write actions require server-side credentials and explicit approval.
-- In-app notifications are distinct from external email/Slack/push delivery.
-- The public showcase is a curated release surface, not a full production deployment bundle.
+Repository retrieval is restricted to `README.md`, `FEATURES.md`, `ARCHITECTURE.md` and `SECURITY.md` in this public repository.
+
+### Run
+
+```bash
+git clone https://github.com/HoosseinRahimi/ForgeFlow-AI.git
+cd ForgeFlow-AI
+docker compose up --build
+```
+
+Then open `http://localhost:8000`.
+
+## v0.13.0 Community Showcase
+
+v0.13.0 was the first curated public milestone derived from the private ForgeFlow AI development platform. It published architecture, feature, security and release documentation plus the static GitHub Pages showcase while deliberately excluding the private production codebase and operational state.
+
+The v0.13.0 GitHub release remains the historical showcase baseline. v0.14.0 introduces the first runnable Community Edition code surface.

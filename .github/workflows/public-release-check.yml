@@ -2,7 +2,6 @@ name: Public Release Check
 
 on:
   push:
-    branches: [main]
   pull_request:
     branches: [main]
 
@@ -23,7 +22,8 @@ jobs:
           for file in "${required[@]}"; do
             test -f "$file" || { echo "Missing required public file: $file"; exit 1; }
           done
-          test "$(tr -d '\r\n' < VERSION)" = "0.13.0"
+          version="$(tr -d '\r\n' < VERSION)"
+          [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || { echo "VERSION must be semantic versioning: $version"; exit 1; }
 
       - name: Reject obvious committed secrets
         shell: bash
