@@ -2,6 +2,8 @@
 
 **AI-native project operations for teams that build software.**
 
+🌐 **Live demo:** https://hoosseinrahimi.github.io/ForgeFlow-AI/
+
 ForgeFlow AI is the public Community Showcase derived from a private production platform for project management, GitHub intelligence, AI-assisted engineering, governed automation, progress tracking, and team review workflows.
 
 The private upstream remains the active development and production repository. This public edition is intentionally curated so the architecture and product ideas are visible without publishing private team data, runtime state, credentials, submissions, or internal operational details.
@@ -35,6 +37,12 @@ The public showcase does **not** contain real team/user data, runtime SQLite dat
 ## Stable baseline
 
 Current public baseline: **v0.13.0 Community Showcase**.
+
+## Deployment
+
+The public showcase is deployed automatically to GitHub Pages from `main` using GitHub Actions.
+
+Live site: https://hoosseinrahimi.github.io/ForgeFlow-AI/
 
 ## License
 
