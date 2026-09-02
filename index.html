@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="ForgeFlow AI is an AI-native project engineering workspace for planning, GitHub intelligence, governed automation, debugging, and progress tracking." />
+  <meta name="theme-color" content="#090b11" />
+  <title>ForgeFlow AI | AI-native project engineering</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #090b11;
+      --panel: rgba(18, 22, 32, .72);
+      --panel-strong: #121620;
+      --text: #f6f7fb;
+      --muted: #a7afbf;
+      --line: rgba(255,255,255,.09);
+      --accent: #8b7cff;
+      --accent2: #37d7c4;
+      --glow: rgba(139,124,255,.24);
+      --radius: 20px;
+      --max: 1120px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 12% 4%, rgba(139,124,255,.17), transparent 31rem),
+        radial-gradient(circle at 88% 20%, rgba(55,215,196,.11), transparent 28rem),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(calc(100% - 40px), var(--max)); margin: 0 auto; }
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(18px);
+      background: rgba(9,11,17,.72);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner { height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: flex; align-items: center; gap: 11px; font-weight: 750; letter-spacing: -.02em; }
+    .mark {
+      width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center;
+      background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #081016; font-weight: 900;
+      box-shadow: 0 10px 32px var(--glow);
+    }
+    .nav-links { display: flex; align-items: center; gap: 22px; color: var(--muted); font-size: 14px; }
+    .nav-links a:hover { color: var(--text); }
+    .button {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      min-height: 44px; padding: 0 18px; border-radius: 12px; font-weight: 700;
+      border: 1px solid var(--line); background: rgba(255,255,255,.035);
+      transition: transform .2s ease, border-color .2s ease, background .2s ease;
+    }
+    .button:hover { transform: translateY(-1px); border-color: rgba(255,255,255,.2); }
+    .button.primary { border: 0; color: #071012; background: linear-gradient(135deg, var(--accent), var(--accent2)); }
+    header { padding: 104px 0 68px; text-align: center; }
+    .eyebrow {
+      display: inline-flex; gap: 8px; align-items: center; padding: 7px 12px; border: 1px solid var(--line);
+      border-radius: 999px; color: #cad0dc; background: rgba(255,255,255,.025); font-size: 13px;
+    }
+    .dot { width: 7px; height: 7px; background: var(--accent2); border-radius: 50%; box-shadow: 0 0 18px var(--accent2); }
+    h1 { margin: 24px auto 18px; max-width: 900px; font-size: clamp(48px, 8vw, 88px); line-height: .98; letter-spacing: -.065em; }
+    .gradient { background: linear-gradient(110deg, #fff 12%, #b9b0ff 50%, #72eadc 86%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .lede { margin: 0 auto; max-width: 720px; font-size: clamp(18px, 2.4vw, 22px); color: var(--muted); }
+    .hero-actions { margin-top: 34px; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+    .hero-card {
+      margin: 66px auto 0; max-width: 1000px; padding: 1px; border-radius: 25px;
+      background: linear-gradient(135deg, rgba(139,124,255,.65), rgba(255,255,255,.05), rgba(55,215,196,.5));
+      box-shadow: 0 34px 100px rgba(0,0,0,.45), 0 0 80px rgba(139,124,255,.08);
+    }
+    .cockpit {
+      border-radius: 24px; background: #0d1018; padding: 22px; text-align: left;
+      display: grid; grid-template-columns: 1.2fr .8fr; gap: 14px; min-height: 390px;
+    }
+    .panel { background: var(--panel-strong); border: 1px solid var(--line); border-radius: 16px; padding: 20px; }
+    .panel h3 { margin: 0 0 4px; font-size: 15px; }
+    .mini { color: var(--muted); font-size: 12px; }
+    .health { display: flex; align-items: end; gap: 12px; margin: 28px 0 12px; }
+    .health strong { font-size: 58px; line-height: .9; letter-spacing: -.06em; }
+    .health span { color: var(--accent2); font-weight: 700; }
+    .bar { height: 8px; overflow: hidden; background: #202534; border-radius: 999px; }
+    .bar i { display: block; width: 86%; height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+    .agent-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 9px; margin-top: 18px; }
+    .agent { padding: 12px; border: 1px solid var(--line); border-radius: 12px; background: rgba(255,255,255,.02); font-size: 12px; color: #d5d9e2; }
+    .timeline { display: grid; gap: 10px; margin-top: 18px; }
+    .event { display: flex; gap: 10px; align-items: flex-start; font-size: 12px; color: var(--muted); }
+    .event b { color: var(--text); font-weight: 650; display: block; }
+    .event .bullet { flex: 0 0 auto; width: 9px; height: 9px; margin-top: 5px; border-radius: 50%; border: 2px solid var(--accent); }
+    section { padding: 78px 0; }
+    .section-head { max-width: 650px; margin-bottom: 34px; }
+    .kicker { color: var(--accent2); text-transform: uppercase; letter-spacing: .12em; font-size: 12px; font-weight: 800; }
+    h2 { margin: 8px 0 12px; font-size: clamp(34px, 5vw, 54px); letter-spacing: -.045em; line-height: 1.05; }
+    .section-head p { margin: 0; color: var(--muted); font-size: 17px; }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .card { min-height: 210px; padding: 24px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); }
+    .icon { font-size: 24px; }
+    .card h3 { margin: 32px 0 8px; font-size: 18px; letter-spacing: -.02em; }
+    .card p { margin: 0; color: var(--muted); font-size: 14px; }
+    .flow { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; align-items: stretch; }
+    .step { padding: 26px; border-radius: var(--radius); background: linear-gradient(180deg, rgba(139,124,255,.08), rgba(255,255,255,.02)); border: 1px solid var(--line); }
+    .step span { display: block; color: var(--accent2); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .1em; }
+    .step h3 { margin: 9px 0 7px; font-size: 22px; }
+    .step p { margin: 0; color: var(--muted); font-size: 14px; }
+    .notice { padding: 28px; border: 1px solid rgba(55,215,196,.2); border-radius: var(--radius); background: rgba(55,215,196,.045); color: #cad4d4; }
+    .notice strong { color: #ecfffc; }
+    .cta { text-align: center; border: 1px solid var(--line); border-radius: 28px; padding: 60px 24px; background: radial-gradient(circle at 50% 0%, rgba(139,124,255,.16), transparent 65%), rgba(255,255,255,.02); }
+    .cta p { max-width: 600px; margin: 12px auto 24px; color: var(--muted); }
+    footer { padding: 38px 0 48px; color: var(--muted); border-top: 1px solid var(--line); font-size: 13px; }
+    .footer-row { display: flex; justify-content: space-between; gap: 20px; align-items: center; }
+    @media (max-width: 820px) {
+      .nav-links a:not(.button) { display: none; }
+      .cockpit, .cards, .flow { grid-template-columns: 1fr; }
+      header { padding-top: 78px; }
+      .hero-card { margin-top: 46px; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top"><span class="mark">F</span><span>ForgeFlow AI</span></a>
+      <div class="nav-links">
+        <a href="#capabilities">Capabilities</a>
+        <a href="#architecture">Architecture</a>
+        <a href="https://github.com/HoosseinRahimi/ForgeFlow-AI/releases/tag/v0.13.0">v0.13.0</a>
+        <a class="button" href="https://github.com/HoosseinRahimi/ForgeFlow-AI">View on GitHub ↗</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top">
+    <header class="wrap">
+      <div class="eyebrow"><span class="dot"></span> Community Showcase · Stable v0.13.0</div>
+      <h1><span class="gradient">Engineering work, with an AI-native control plane.</span></h1>
+      <p class="lede">ForgeFlow AI brings project planning, GitHub intelligence, governed AI actions, debugging, progress evidence, and project health into one engineering workspace.</p>
+      <div class="hero-actions">
+        <a class="button primary" href="#capabilities">Explore capabilities</a>
+        <a class="button" href="https://github.com/HoosseinRahimi/ForgeFlow-AI/releases/tag/v0.13.0">Read release notes</a>
+      </div>
+
+      <div class="hero-card" aria-label="Illustrative ForgeFlow AI cockpit">
+        <div class="cockpit">
+          <div class="panel">
+            <span class="mini">PROJECT HEALTH</span>
+            <div class="health"><strong>86</strong><span>Healthy ↑</span></div>
+            <div class="bar"><i></i></div>
+            <div class="agent-grid">
+              <div class="agent">◈ Planner<br><span class="mini">Roadmap aligned</span></div>
+              <div class="agent">⌁ Code Reviewer<br><span class="mini">Diff context ready</span></div>
+              <div class="agent">⌘ Debugger<br><span class="mini">Repo context indexed</span></div>
+              <div class="agent">✓ Progress Tracker<br><span class="mini">Evidence synchronized</span></div>
+            </div>
+          </div>
+          <div class="panel">
+            <span class="mini">INTELLIGENCE FEED</span>
+            <div class="timeline">
+              <div class="event"><span class="bullet"></span><div><b>PR evidence linked</b>Implementation activity mapped to project progress.</div></div>
+              <div class="event"><span class="bullet"></span><div><b>Roadmap replan suggested</b>Two downstream tasks can now start in parallel.</div></div>
+              <div class="event"><span class="bullet"></span><div><b>Governed action pending</b>Create task is proposed and waiting for approval.</div></div>
+              <div class="event"><span class="bullet"></span><div><b>Weekly brief generated</b>Delivery, code, tests, schedule and docs summarized.</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section id="capabilities">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">Capabilities</div>
+          <h2>One workspace, seven specialist lenses.</h2>
+          <p>The current architecture combines project state with repository context so AI assistance stays grounded in the work instead of floating above it.</p>
+        </div>
+        <div class="cards">
+          <article class="card"><div class="icon">◇</div><h3>AI Project Copilot</h3><p>Persistent project threads, snapshots, planning, task suggestions, daily intelligence, weekly briefs, and structured memory.</p></article>
+          <article class="card"><div class="icon">⌘</div><h3>Repository Intelligence</h3><p>Bounded lexical repository retrieval, diff-aware review assistance, and debugging recommendations grounded in code context.</p></article>
+          <article class="card"><div class="icon">↗</div><h3>GitHub Evidence</h3><p>Commit and pull-request activity can support evidence-backed progress inference rather than relying only on self-reported status.</p></article>
+          <article class="card"><div class="icon">◎</div><h3>Project Health</h3><p>Heuristic health scoring across delivery, code, security, tests, schedule, and documentation surfaces project risk quickly.</p></article>
+          <article class="card"><div class="icon">⚡</div><h3>Multi-agent Review</h3><p>Planner, project manager, code reviewer, debugger, progress tracker, GitHub agent, and documentation agent provide specialist perspectives.</p></article>
+          <article class="card"><div class="icon">🔒</div><h3>Governed Automation</h3><p>Side effects are controlled. AI actions follow an explicit approval boundary before internal or external writes execute.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="architecture">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">Control model</div>
+          <h2>Propose. Approve. Execute.</h2>
+          <p>Automation is useful only when its authority is legible. ForgeFlow AI separates reasoning from side effects with a governed action lifecycle.</p>
+        </div>
+        <div class="flow">
+          <div class="step"><span>01</span><h3>Propose</h3><p>An action is formed with explicit intent and payload instead of mutating project state invisibly.</p></div>
+          <div class="step"><span>02</span><h3>Approve</h3><p>A human-controlled boundary decides whether the proposal is allowed to become an actual change.</p></div>
+          <div class="step"><span>03</span><h3>Execute</h3><p>Approved operations use server-side authority, bounded inputs, ownership checks, and auditable results.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="notice"><strong>Public showcase boundary.</strong> This repository intentionally excludes private user/team data, runtime databases, credentials, submission state, and private deployment configuration. The public edition documents architecture and selected reusable concepts rather than mirroring the private development repository.</div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap cta">
+        <div class="kicker">Open-source showcase</div>
+        <h2>Follow ForgeFlow AI as it evolves.</h2>
+        <p>Browse the architecture, feature matrix, security model, contribution guide, and stable release directly on GitHub.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="https://github.com/HoosseinRahimi/ForgeFlow-AI">Open repository ↗</a>
+          <a class="button" href="https://github.com/HoosseinRahimi/ForgeFlow-AI/blob/main/ARCHITECTURE.md">Architecture</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-row">
+      <span>© 2026 Hossein Rahimi · ForgeFlow AI</span>
+      <span>Community Showcase v0.13.0</span>
+    </div>
+  </footer>
+</body>
+</html>
