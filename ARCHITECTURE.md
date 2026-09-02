@@ -1,58 +1,85 @@
 # ForgeFlow AI Architecture
 
-ForgeFlow AI is designed as a modular monolith with a React/TypeScript frontend, FastAPI backend, SQLite runtime database, Git-tracked project/activity source data, and optional external AI/GitHub integrations.
+ForgeFlow AI uses a **private-core + public Community Edition** model. The public repository is runnable, but it is intentionally smaller than the private production platform.
 
-## Layers
+## Community Edition v0.14.0
+
+```text
+Browser
+  |
+  v
+React / Vite UI
+  |
+  | same-origin /api
+  v
+FastAPI
+  |-- project health demo
+  |-- public-doc lexical retrieval
+  |-- deterministic debugger
+  `-- governed in-memory action demo
+
+Docker image
+  `-- built React assets served by FastAPI
+```
 
 ### Frontend
 
-- React + TypeScript
-- role-aware routes
-- project, activity, calendar, timeline, review and AI workspace views
-- typed API client contracts
+The Community UI is a small React application that exposes the public demonstration surfaces. Development requests to `/api` and `/health` are proxied to FastAPI by Vite. In the production container, FastAPI serves the built frontend directly, so the application runs behind one origin.
 
 ### Backend
 
-- FastAPI application
-- explicit schemas and service modules
-- session authentication, CSRF checks and ownership authorization
-- project integration, review, submission, release-preflight and AI services
+The public backend is intentionally compact. It contains:
 
-### Data
+- `/health`
+- synthetic project-health intelligence
+- lexical retrieval over approved public documentation
+- deterministic debugging hints
+- an in-memory `propose -> approve/reject` action lifecycle
 
-Two categories are intentionally separated:
+There is no production authentication database, grading data, private project state, provider token or GitHub write credential in the Community runtime.
 
-1. Git-tracked shared source data for collaborative project/activity state
-2. Runtime SQLite state for sessions, reviews, submissions, AI threads, memory, actions, health snapshots and notifications
+### Retrieval boundary
 
-### GitHub boundary
+Repository intelligence is deliberately bounded to four public files: `README.md`, `FEATURES.md`, `ARCHITECTURE.md` and `SECURITY.md`. Retrieval uses lexical token overlap rather than embeddings or vector search.
 
-ForgeFlow AI separates GitHub integration into:
+This makes the public behavior inspectable and prevents accidental indexing of private upstream material.
 
-- read-oriented contribution intelligence for commits and pull requests
-- governed server-side write actions requiring runtime credentials and explicit approval
+### Persistence
 
-### AI boundary
+The current Community Edition needs no persistent database. Governed demo proposals are process-local and reset when the application restarts. This is intentional: the public runtime demonstrates the control pattern without presenting demo state as production state.
 
-AI features can use provider-backed execution when configured and deterministic fallback where appropriate. Repository retrieval currently uses bounded lexical chunk retrieval rather than vector or embedding-based semantic search.
+### Container boundary
 
-Governed actions follow:
+The root multi-stage `Dockerfile`:
 
-`propose -> approve -> execute`
+1. builds the React frontend with Node.js;
+2. installs the minimal Python runtime;
+3. copies only the public backend and approved documentation required by retrieval;
+4. copies the built frontend;
+5. starts Uvicorn on port 8000.
 
-The model is not trusted with unrestricted shell, filesystem, credential or GitHub access.
+`docker-compose.yml` exposes port 8000 and validates `/health`.
+
+## Private upstream architecture
+
+The private ForgeFlow platform is broader. It uses a React/TypeScript frontend, FastAPI services, runtime SQLite state, Git-tracked project/activity source data and optional external AI/GitHub integrations. It includes authenticated role-aware workflows, review/submission state, AI memory and threads, progress evidence, notifications, orchestration and governed external actions.
+
+Those private capabilities are not automatically mirrored into the Community Edition.
+
+## Production GitHub boundary
+
+The private platform separates read-oriented contribution intelligence from governed server-side GitHub writes. Production write actions require runtime credentials and explicit approval. The Community Edition contains **no GitHub write implementation or credential path**.
 
 ## Security principles
 
-- secrets stay server-side
-- project/user ownership is checked before data access
-- CSRF protects authenticated durable writes
-- AI requests are bounded and rate-limited
-- repository indexing restricts roots, suffixes and file sizes
-- external requests use timeouts
-- automatic evidence-backed progress mutation is opt-in
-- CI covers lint, tests, E2E and dependency auditing
+- secrets remain server-side and are never committed to the Community repository
+- public retrieval reads only an explicit allow-list of documentation files
+- Community demo actions have no external side effects
+- no unrestricted shell or filesystem tool is exposed to the public demo
+- CI builds the frontend and backend and starts the actual Docker image
+- a public-surface workflow rejects obvious committed credential patterns
+- private production state remains outside the public repository
 
-## Public showcase boundary
+## Release model
 
-This Community Showcase documents selected architecture and product concepts while excluding private team data, deployment state, credential-bearing configuration, private submissions and runtime databases.
+The public repository is an intentionally curated derivative. New functionality should be reimplemented or extracted only after checking data exposure, credentials, operational side effects and licensing. Public release work should never be treated as a blind mirror or synchronization of the private repository.
