@@ -83,6 +83,11 @@ Repository retrieval is intentionally limited to `README.md`, `FEATURES.md`, `AR
 - [Architecture](ARCHITECTURE.md)
 - [Security policy](SECURITY.md)
 - [Release notes](RELEASE_NOTES.md)
+- [Contributing guide](CONTRIBUTING.md)
+
+## Community & Discussions
+
+Have questions, ideas, or feedback? Join our [GitHub Discussions](https://github.com/HoosseinRahimi/ForgeFlow-AI/discussions) to connect with the community and share project updates.
 
 ## Version
 
