@@ -32,6 +32,7 @@ The public backend is intentionally compact. It contains:
 
 - `/health`
 - synthetic project-health intelligence
+- synthetic multi-agent review perspectives
 - lexical retrieval over approved public documentation
 - deterministic debugging hints
 - an in-memory `propose -> approve/reject` action lifecycle

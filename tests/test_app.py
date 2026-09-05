@@ -30,3 +30,21 @@ def test_debugger_is_local_and_deterministic():
     response = client.post('/api/demo/debug', json={'error': 'CORS error while calling API'})
     assert response.status_code == 200
     assert 'external model' in response.json()['analysis']
+
+
+def test_agent_review_is_demo_data():
+    response = client.get('/api/demo/agent-review')
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload['mode'] == 'demo'
+    assert 'Demo data only' in payload['note']
+    agents = {agent['name'] for agent in payload['agents']}
+    assert agents == {
+        'Planner',
+        'Project Manager',
+        'Code Reviewer',
+        'Debugger',
+        'Progress Tracker',
+        'GitHub Agent',
+        'Documentation Agent',
+    }

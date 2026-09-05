@@ -12,6 +12,7 @@ The public repository now contains a runnable subset rather than documentation a
 - bounded lexical repository retrieval over public ForgeFlow documentation only
 - deterministic local debugging assistance with no external model call
 - governed demo actions using `propose -> approve/reject`
+- multi-agent review demo using explicit synthetic agent perspectives
 - single-service Docker image serving the built React frontend from FastAPI
 - Docker Compose startup and `/health` readiness endpoint
 - backend API tests, frontend build validation and container smoke testing in GitHub Actions

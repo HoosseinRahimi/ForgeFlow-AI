@@ -68,6 +68,23 @@ def project_health() -> dict[str, object]:
     }
 
 
+@app.get("/api/demo/agent-review")
+def agent_review() -> dict[str, object]:
+    return {
+        "mode": "demo",
+        "agents": [
+            {"name": "Planner", "status": "roadmap aligned", "insight": "Two downstream tasks can start in parallel after the current milestone review."},
+            {"name": "Project Manager", "status": "on track", "insight": "The delivery signal is healthy and the schedule holds for the next milestone."},
+            {"name": "Code Reviewer", "status": "diff context ready", "insight": "Recent changes stay within the documented public boundary and pass CI."},
+            {"name": "Debugger", "status": "no open regressions", "insight": "No failing checks are attached to the current demo project state."},
+            {"name": "Progress Tracker", "status": "evidence synchronized", "insight": "Demo activity remains mapped to the current milestone and its tasks."},
+            {"name": "GitHub Agent", "status": "read-only", "insight": "The community edition exposes no GitHub write automation or credentials."},
+            {"name": "Documentation Agent", "status": "coverage current", "insight": "Public documentation describes the runnable surfaces and their boundaries."},
+        ],
+        "note": "Demo data only. No private upstream state is included.",
+    }
+
+
 def _tokenize(value: str) -> set[str]:
     return {token for token in re.findall(r"[a-z0-9_-]{2,}", value.lower())}
 

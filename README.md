@@ -16,6 +16,7 @@ The private upstream remains the active development and production repository. T
 - bounded lexical retrieval over **public repository documentation only**
 - deterministic local debugging assistant
 - governed action demo using `propose -> approve/reject`
+- multi-agent review demo exposing the seven documented specialist lenses as demo data
 - single-service production Docker image
 - Docker Compose one-command startup
 - backend tests, frontend build validation, and Docker smoke testing in GitHub Actions
