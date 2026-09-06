@@ -4,23 +4,22 @@
 
 🌐 **Live showcase:** https://hoosseinrahimi.github.io/ForgeFlow-AI/
 
-ForgeFlow AI Community Edition is a runnable, privacy-safe public subset derived from a private production platform for project management, repository intelligence, AI-assisted engineering, governed automation, progress tracking, and team review workflows.
+ForgeFlow AI Community Edition is a runnable, privacy-safe public subset derived from a private production platform for team collaboration, multi-tenant workspaces, repository intelligence, AI-assisted engineering, governed automation, progress tracking, and code review workflows.
 
-The private upstream remains the active development and production repository. This public edition deliberately excludes private team data, runtime databases, credentials, submissions, grading records, production GitHub write automation, and internal deployment state.
+The private upstream remains the active production platform. This public edition demonstrates the architecture, control plane, and core concepts while deliberately excluding private team databases, runtime credentials, submissions, grading records, and production GitHub write automation.
 
-## What is runnable in v0.14.0
+## What is runnable in v0.15.0
 
-- React community cockpit
-- FastAPI backend
-- project health demo endpoint
-- bounded lexical retrieval over **public repository documentation only**
-- deterministic local debugging assistant
-- governed action demo using `propose -> approve/reject`
-- single-service production Docker image
+- React community cockpit with team preview and adaptive theming
+- FastAPI backend with interactive OpenAPI docs at `/docs`
+- Multi-tenant team workspace preview endpoint (`/api/demo/teams`)
+- Project health demo endpoint
+- Bounded lexical retrieval over **public repository documentation only**
+- Deterministic local debugging assistant with zero external model calls
+- Governed action demo using `propose -> approve/reject`
+- Single-service multi-stage Docker image
 - Docker Compose one-command startup
-- backend tests, frontend build validation, and Docker smoke testing in GitHub Actions
-
-The richer private platform still contains capabilities that are intentionally not mirrored here, including private user/project state, production integrations, internal autonomous workflows, grading/submission data, and credentials.
+- Backend API tests, frontend build validation, and GitHub Actions CI
 
 ## Run locally
 
@@ -91,16 +90,12 @@ Have questions, ideas, or feedback? Join our [GitHub Discussions](https://github
 
 ## Version
 
-Current runnable Community Edition: **v0.14.0**.
+Current runnable Community Edition: **v0.15.0**.
 
 ## Deployment
 
-The marketing/showcase landing page remains deployed to GitHub Pages from `main`. The runnable application is designed for local Docker execution or deployment to a container platform.
+The marketing/showcase landing page is deployed to GitHub Pages from `main` ([hoosseinrahimi.github.io/ForgeFlow-AI](https://hoosseinrahimi.github.io/ForgeFlow-AI/)). The runnable application is packaged for local Docker execution, Vercel Serverless, or Railway container deployment.
 
 ## License
 
 MIT. See [LICENSE](LICENSE).
-
-## Status
-
-ForgeFlow AI is a curated open-source Community Edition, not a mirror of the private production repository. Public code is added only when its data, security, and operational boundaries are appropriate for open-source release.

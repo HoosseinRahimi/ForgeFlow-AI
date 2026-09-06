@@ -58,11 +58,15 @@ export default function App() {
     <main>
       <header className="hero">
         <div>
-          <span className="eyebrow">COMMUNITY EDITION · v0.14.0</span>
+          <span className="eyebrow">COMMUNITY EDITION · v0.15.0</span>
           <h1>ForgeFlow AI</h1>
           <p>Runnable project intelligence with a deliberately safe public boundary.</p>
         </div>
-        <div className="pill">FastAPI + React + Docker</div>
+        <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", justifyContent: "flex-end" }}>
+          <span className="pill">🏢 Team: QuantumLeap Core</span>
+          <span className="pill">🌐 EN · DE · FA</span>
+          <span className="pill">FastAPI + React + Docker</span>
+        </div>
       </header>
 
       <section className="grid">

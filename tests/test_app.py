@@ -9,6 +9,7 @@ def test_health():
     response = client.get('/health')
     assert response.status_code == 200
     assert response.json()['edition'] == 'community'
+    assert response.json()['version'] == '0.15.0'
 
 
 def test_repo_query_uses_public_docs():
@@ -30,3 +31,11 @@ def test_debugger_is_local_and_deterministic():
     response = client.post('/api/demo/debug', json={'error': 'CORS error while calling API'})
     assert response.status_code == 200
     assert 'external model' in response.json()['analysis']
+
+
+def test_demo_teams():
+    response = client.get('/api/demo/teams')
+    assert response.status_code == 200
+    data = response.json()
+    assert 'teams' in data
+    assert data['active_team'] == 'QuantumLeap Core'

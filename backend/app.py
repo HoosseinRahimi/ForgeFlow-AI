@@ -16,7 +16,7 @@ FRONTEND_DIST = APP_ROOT / "frontend" / "dist"
 
 app = FastAPI(
     title="ForgeFlow AI Community Edition",
-    version="0.14.0",
+    version="0.15.0",
     description="Runnable, privacy-safe community subset of ForgeFlow AI.",
 )
 app.add_middleware(
@@ -51,8 +51,21 @@ NEXT_ID = 1
 
 @app.get("/health")
 def health() -> dict[str, str]:
-    return {"status": "ok", "edition": "community", "version": "0.14.0"}
+    return {"status": "ok", "edition": "community", "version": "0.15.0"}
 
+
+
+@app.get("/api/demo/teams")
+def demo_teams() -> dict[str, object]:
+    return {
+        "active_team": "QuantumLeap Core",
+        "teams": [
+            {"id": 1, "name": "QuantumLeap Core", "role": "Team Lead", "members_count": 4},
+            {"id": 2, "name": "Autonomous AI Labs", "role": "Collaborator", "members_count": 6},
+        ],
+        "roles": ["Student", "Professor", "Team Lead", "Custom Reviewer"],
+        "note": "Demo team tenancy context. No private user or team databases are exposed.",
+    }
 
 @app.get("/api/demo/project-health")
 def project_health() -> dict[str, object]:
