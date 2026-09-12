@@ -6,16 +6,17 @@ The public repository contains a runnable, privacy-safe community subset represe
 
 ### Runnable public features
 
-- **React Community Cockpit**: interactive dashboard with health scoring, team switching preview, lexical RAG, and action approval.
-- **FastAPI Backend**: OpenAPI documentation at `/docs`, health endpoints, and demo services.
-- **Team Workspace Demo**: preview multi-tenant team contexts and role scopes via `/api/demo/teams`.
-- **Project-Health Demo**: synthetic signals across delivery, quality, and risk.
-- **Bounded Lexical Repository Retrieval**: lexical search scoped strictly to public documentation (`README.md`, `FEATURES.md`, `ARCHITECTURE.md`, `SECURITY.md`).
-- **Deterministic Local Debugging Assistant**: offline diagnostic hints with zero external model calls.
-- **Governed Action Lifecycle**: demonstration of `propose -> approve/reject` action workflow.
-- **Single-Service Docker Image**: multi-stage build serving built React frontend directly from FastAPI.
-- **Docker Compose Startup**: one-command local evaluation.
-- **GitHub Actions CI**: backend tests, frontend build verification, and container smoke testing.
+- React community cockpit
+- FastAPI backend and interactive OpenAPI docs
+- project-health demo using explicit synthetic data
+- bounded lexical repository retrieval over public ForgeFlow documentation only
+- deterministic local debugging assistance with no external model call
+- governed demo actions using `propose -> approve/reject`
+- multi-agent review demo using explicit synthetic agent perspectives
+- single-service Docker image serving the built React frontend from FastAPI
+- Docker Compose startup and `/health` readiness endpoint
+- backend API tests, frontend build validation and container smoke testing in GitHub Actions
+- public-surface checks for semantic versioning, boundary language and obvious committed credentials
 
 ### Intentionally not included in the public runtime
 

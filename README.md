@@ -10,14 +10,14 @@ The private upstream remains the active production platform. This public edition
 
 ## What is runnable in v0.15.0
 
-- React community cockpit with team preview and adaptive theming
-- FastAPI backend with interactive OpenAPI docs at `/docs`
-- Multi-tenant team workspace preview endpoint (`/api/demo/teams`)
-- Project health demo endpoint
-- Bounded lexical retrieval over **public repository documentation only**
-- Deterministic local debugging assistant with zero external model calls
-- Governed action demo using `propose -> approve/reject`
-- Single-service multi-stage Docker image
+- React community cockpit
+- FastAPI backend
+- project health demo endpoint
+- bounded lexical retrieval over **public repository documentation only**
+- deterministic local debugging assistant
+- governed action demo using `propose -> approve/reject`
+- multi-agent review demo exposing the seven documented specialist lenses as demo data
+- single-service production Docker image
 - Docker Compose one-command startup
 - Backend API tests, frontend build validation, and GitHub Actions CI
 
