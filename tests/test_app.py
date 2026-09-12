@@ -9,6 +9,7 @@ def test_health():
     response = client.get('/health')
     assert response.status_code == 200
     assert response.json()['edition'] == 'community'
+    assert response.json()['version'] == '0.15.0'
 
 
 def test_repo_query_uses_public_docs():
@@ -48,3 +49,11 @@ def test_agent_review_is_demo_data():
         'GitHub Agent',
         'Documentation Agent',
     }
+
+
+def test_demo_teams():
+    response = client.get('/api/demo/teams')
+    assert response.status_code == 200
+    data = response.json()
+    assert 'teams' in data
+    assert data['active_team'] == 'QuantumLeap Core'

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="ForgeFlow AI is an AI-native project engineering workspace for planning, GitHub intelligence, governed automation, debugging, and progress tracking." />
+  <meta name="description" content="ForgeFlow AI is an AI-native project engineering workspace for team collaboration, GitHub intelligence, governed automation, debugging, and multi-tenant workflows." />
   <meta name="theme-color" content="#090b11" />
   <title>ForgeFlow AI | AI-native project engineering</title>
   <style>
@@ -62,7 +62,7 @@
     .button.primary { border: 0; color: #071012; background: linear-gradient(135deg, var(--accent), var(--accent2)); }
     header { padding: 104px 0 68px; text-align: center; }
     .eyebrow {
-      display: inline-flex; gap: 8px; align-items: center; padding: 7px 12px; border: 1px solid var(--line);
+      display: inline-flex; gap: 8px; align-items: center; padding: 7px 14px; border: 1px solid var(--line);
       border-radius: 999px; color: #cad0dc; background: rgba(255,255,255,.025); font-size: 13px;
     }
     .dot { width: 7px; height: 7px; background: var(--accent2); border-radius: 50%; box-shadow: 0 0 18px var(--accent2); }
@@ -75,18 +75,34 @@
       background: linear-gradient(135deg, rgba(139,124,255,.65), rgba(255,255,255,.05), rgba(55,215,196,.5));
       box-shadow: 0 34px 100px rgba(0,0,0,.45), 0 0 80px rgba(139,124,255,.08);
     }
-    .cockpit {
+    .cockpit-shell {
       border-radius: 24px; background: #0d1018; padding: 22px; text-align: left;
-      display: grid; grid-template-columns: 1.2fr .8fr; gap: 14px; min-height: 390px;
+    }
+    .cockpit-topbar {
+      display: flex; justify-content: space-between; align-items: center; gap: 12px;
+      padding-bottom: 16px; margin-bottom: 16px; border-bottom: 1px solid var(--line); flex-wrap: wrap;
+    }
+    .team-badge {
+      display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 650;
+      padding: 6px 12px; border-radius: 999px; background: rgba(139,124,255,.12); border: 1px solid rgba(139,124,255,.3);
+    }
+    .topbar-controls {
+      display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--muted);
+    }
+    .chip {
+      padding: 4px 10px; border-radius: 8px; border: 1px solid var(--line); background: rgba(255,255,255,.03);
+    }
+    .cockpit {
+      display: grid; grid-template-columns: 1.2fr .8fr; gap: 14px; min-height: 380px;
     }
     .panel { background: var(--panel-strong); border: 1px solid var(--line); border-radius: 16px; padding: 20px; }
     .panel h3 { margin: 0 0 4px; font-size: 15px; }
     .mini { color: var(--muted); font-size: 12px; }
-    .health { display: flex; align-items: end; gap: 12px; margin: 28px 0 12px; }
+    .health { display: flex; align-items: end; gap: 12px; margin: 24px 0 12px; }
     .health strong { font-size: 58px; line-height: .9; letter-spacing: -.06em; }
     .health span { color: var(--accent2); font-weight: 700; }
     .bar { height: 8px; overflow: hidden; background: #202534; border-radius: 999px; }
-    .bar i { display: block; width: 86%; height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+    .bar i { display: block; width: 92%; height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); }
     .agent-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 9px; margin-top: 18px; }
     .agent { padding: 12px; border: 1px solid var(--line); border-radius: 12px; background: rgba(255,255,255,.02); font-size: 12px; color: #d5d9e2; }
     .timeline { display: grid; gap: 10px; margin-top: 18px; }
@@ -94,14 +110,14 @@
     .event b { color: var(--text); font-weight: 650; display: block; }
     .event .bullet { flex: 0 0 auto; width: 9px; height: 9px; margin-top: 5px; border-radius: 50%; border: 2px solid var(--accent); }
     section { padding: 78px 0; }
-    .section-head { max-width: 650px; margin-bottom: 34px; }
+    .section-head { max-width: 700px; margin-bottom: 34px; }
     .kicker { color: var(--accent2); text-transform: uppercase; letter-spacing: .12em; font-size: 12px; font-weight: 800; }
     h2 { margin: 8px 0 12px; font-size: clamp(34px, 5vw, 54px); letter-spacing: -.045em; line-height: 1.05; }
     .section-head p { margin: 0; color: var(--muted); font-size: 17px; }
     .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
     .card { min-height: 210px; padding: 24px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); }
     .icon { font-size: 24px; }
-    .card h3 { margin: 32px 0 8px; font-size: 18px; letter-spacing: -.02em; }
+    .card h3 { margin: 28px 0 8px; font-size: 18px; letter-spacing: -.02em; }
     .card p { margin: 0; color: var(--muted); font-size: 14px; }
     .flow { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; align-items: stretch; }
     .step { padding: 26px; border-radius: var(--radius); background: linear-gradient(180deg, rgba(139,124,255,.08), rgba(255,255,255,.02)); border: 1px solid var(--line); }
@@ -129,7 +145,8 @@
       <div class="nav-links">
         <a href="#capabilities">Capabilities</a>
         <a href="#architecture">Architecture</a>
-        <a href="https://github.com/HoosseinRahimi/ForgeFlow-AI/releases/tag/v0.13.0">v0.13.0</a>
+        <a href="#boundary">Public Boundary</a>
+        <a href="https://github.com/HoosseinRahimi/ForgeFlow-AI/releases">v0.15.0</a>
         <a class="button" href="https://github.com/HoosseinRahimi/ForgeFlow-AI">View on GitHub ↗</a>
       </div>
     </div>
@@ -137,34 +154,46 @@
 
   <main id="top">
     <header class="wrap">
-      <div class="eyebrow"><span class="dot"></span> Community Showcase · Stable v0.13.0</div>
+      <div class="eyebrow"><span class="dot"></span> Community Showcase · Release v0.15.0</div>
       <h1><span class="gradient">Engineering work, with an AI-native control plane.</span></h1>
-      <p class="lede">ForgeFlow AI brings project planning, GitHub intelligence, governed AI actions, debugging, progress evidence, and project health into one engineering workspace.</p>
+      <p class="lede">ForgeFlow AI unifies multi-tenant team collaboration, GitHub intelligence, governed AI actions, debugging, progress evidence, and adaptive theming into one engineering workspace.</p>
       <div class="hero-actions">
         <a class="button primary" href="#capabilities">Explore capabilities</a>
-        <a class="button" href="https://github.com/HoosseinRahimi/ForgeFlow-AI/releases/tag/v0.13.0">Read release notes</a>
+        <a class="button" href="https://github.com/HoosseinRahimi/ForgeFlow-AI/blob/main/RELEASE_NOTES.md">Read release notes</a>
       </div>
 
       <div class="hero-card" aria-label="Illustrative ForgeFlow AI cockpit">
-        <div class="cockpit">
-          <div class="panel">
-            <span class="mini">PROJECT HEALTH</span>
-            <div class="health"><strong>86</strong><span>Healthy ↑</span></div>
-            <div class="bar"><i></i></div>
-            <div class="agent-grid">
-              <div class="agent">◈ Planner<br><span class="mini">Roadmap aligned</span></div>
-              <div class="agent">⌁ Code Reviewer<br><span class="mini">Diff context ready</span></div>
-              <div class="agent">⌘ Debugger<br><span class="mini">Repo context indexed</span></div>
-              <div class="agent">✓ Progress Tracker<br><span class="mini">Evidence synchronized</span></div>
+        <div class="cockpit-shell">
+          <div class="cockpit-topbar">
+            <div class="team-badge">
+              <span>🏢 Active Team:</span> <strong>QuantumLeap Core</strong> ▾
+            </div>
+            <div class="topbar-controls">
+              <span class="chip">Role: Team Lead</span>
+              <span class="chip">🌐 EN · DE · FA</span>
+              <span class="chip">🌙 Dark Mode</span>
             </div>
           </div>
-          <div class="panel">
-            <span class="mini">INTELLIGENCE FEED</span>
-            <div class="timeline">
-              <div class="event"><span class="bullet"></span><div><b>PR evidence linked</b>Implementation activity mapped to project progress.</div></div>
-              <div class="event"><span class="bullet"></span><div><b>Roadmap replan suggested</b>Two downstream tasks can now start in parallel.</div></div>
-              <div class="event"><span class="bullet"></span><div><b>Governed action pending</b>Create task is proposed and waiting for approval.</div></div>
-              <div class="event"><span class="bullet"></span><div><b>Weekly brief generated</b>Delivery, code, tests, schedule and docs summarized.</div></div>
+          <div class="cockpit">
+            <div class="panel">
+              <span class="mini">PROJECT HEALTH</span>
+              <div class="health"><strong>92</strong><span>Optimal ↑</span></div>
+              <div class="bar"><i></i></div>
+              <div class="agent-grid">
+                <div class="agent">◈ Planner<br><span class="mini">Multi-tenant roadmap</span></div>
+                <div class="agent">⌁ Code Reviewer<br><span class="mini">Diff context ready</span></div>
+                <div class="agent">⌘ Debugger<br><span class="mini">Local lexical RAG</span></div>
+                <div class="agent">✓ Progress Tracker<br><span class="mini">Evidence synchronized</span></div>
+              </div>
+            </div>
+            <div class="panel">
+              <span class="mini">INTELLIGENCE FEED</span>
+              <div class="timeline">
+                <div class="event"><span class="bullet"></span><div><b>Team invitation accepted</b>Senior engineer joined with custom permissions.</div></div>
+                <div class="event"><span class="bullet"></span><div><b>PR evidence linked</b>Implementation activity mapped to team roadmap.</div></div>
+                <div class="event"><span class="bullet"></span><div><b>Governed action pending</b>Action proposed: waiting for leader sign-off.</div></div>
+                <div class="event"><span class="bullet"></span><div><b>Tri-lingual brief generated</b>Automated delivery brief compiled in EN/DE/FA.</div></div>
+              </div>
             </div>
           </div>
         </div>
@@ -176,15 +205,15 @@
         <div class="section-head">
           <div class="kicker">Capabilities</div>
           <h2>One workspace, seven specialist lenses.</h2>
-          <p>The current architecture combines project state with repository context so AI assistance stays grounded in the work instead of floating above it.</p>
+          <p>The architecture combines project state, team isolation, and repository context so AI assistance stays grounded in the work instead of floating above it.</p>
         </div>
         <div class="cards">
-          <article class="card"><div class="icon">◇</div><h3>AI Project Copilot</h3><p>Persistent project threads, snapshots, planning, task suggestions, daily intelligence, weekly briefs, and structured memory.</p></article>
+          <article class="card"><div class="icon">👥</div><h3>Multi-Tenant Team Workspaces</h3><p>Create isolated team environments, invite collaborators with secure tokens, and configure custom rule-based role permissions.</p></article>
+          <article class="card"><div class="icon">🔐</div><h3>Self-Serve User Onboarding</h3><p>Structured role-aware signup (Student, Professor, Team Lead) with secure session handling and automated database migrations.</p></article>
+          <article class="card"><div class="icon">🌍</div><h3>Full Tri-Lingual Parity</h3><p>Native English, German (DE), and Persian (FA) internationalization with full RTL layout support and localized intelligence briefs.</p></article>
+          <article class="card"><div class="icon">🎨</div><h3>Adaptive Theme System</h3><p>Instant Day/Night toggle, comprehensive settings drawer with System/Light/Dark persistence, and customized UI palettes.</p></article>
           <article class="card"><div class="icon">⌘</div><h3>Repository Intelligence</h3><p>Bounded lexical repository retrieval, diff-aware review assistance, and debugging recommendations grounded in code context.</p></article>
-          <article class="card"><div class="icon">↗</div><h3>GitHub Evidence</h3><p>Commit and pull-request activity can support evidence-backed progress inference rather than relying only on self-reported status.</p></article>
-          <article class="card"><div class="icon">◎</div><h3>Project Health</h3><p>Heuristic health scoring across delivery, code, security, tests, schedule, and documentation surfaces project risk quickly.</p></article>
-          <article class="card"><div class="icon">⚡</div><h3>Multi-agent Review</h3><p>Planner, project manager, code reviewer, debugger, progress tracker, GitHub agent, and documentation agent provide specialist perspectives.</p></article>
-          <article class="card"><div class="icon">🔒</div><h3>Governed Automation</h3><p>Side effects are controlled. AI actions follow an explicit approval boundary before internal or external writes execute.</p></article>
+          <article class="card"><div class="icon">🔒</div><h3>Governed Automation</h3><p>Side effects are strictly controlled. AI actions follow an explicit propose → approve boundary before any writes execute.</p></article>
         </div>
       </div>
     </section>
@@ -204,9 +233,9 @@
       </div>
     </section>
 
-    <section>
+    <section id="boundary">
       <div class="wrap">
-        <div class="notice"><strong>Public showcase boundary.</strong> This repository intentionally excludes private user/team data, runtime databases, credentials, submission state, and private deployment configuration. The public edition documents architecture and selected reusable concepts rather than mirroring the private development repository.</div>
+        <div class="notice"><strong>Public showcase boundary.</strong> This repository intentionally excludes private user/team databases, live production credentials, student submission records, and internal deployment configurations. The public edition documents architecture and provides a runnable, safe subset for the community.</div>
       </div>
     </section>
 
@@ -214,7 +243,7 @@
       <div class="wrap cta">
         <div class="kicker">Open-source showcase</div>
         <h2>Follow ForgeFlow AI as it evolves.</h2>
-        <p>Browse the architecture, feature matrix, security model, contribution guide, and stable release directly on GitHub.</p>
+        <p>Browse the architecture, feature matrix, security model, contribution guide, and latest release directly on GitHub.</p>
         <div class="hero-actions">
           <a class="button primary" href="https://github.com/HoosseinRahimi/ForgeFlow-AI">Open repository ↗</a>
           <a class="button" href="https://github.com/HoosseinRahimi/ForgeFlow-AI/blob/main/ARCHITECTURE.md">Architecture</a>
@@ -226,7 +255,7 @@
   <footer>
     <div class="wrap footer-row">
       <span>© 2026 Hossein Rahimi · ForgeFlow AI</span>
-      <span>Community Showcase v0.13.0</span>
+      <span>Community Showcase v0.15.0</span>
     </div>
   </footer>
 </body>
