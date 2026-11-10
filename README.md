@@ -1,5 +1,9 @@
 # ForgeFlow AI
 
+[![CI](https://github.com/HoosseinRahimi/ForgeFlow-AI/actions/workflows/community-ci.yml/badge.svg)](https://github.com/HoosseinRahimi/ForgeFlow-AI/actions/workflows/community-ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Live showcase](https://img.shields.io/badge/Live-Showcase-0e8a78.svg)](https://hoosseinrahimi.github.io/ForgeFlow-AI/)
+
 **AI-native project operations for teams that build software.**
 
 🌐 **Live showcase:** https://hoosseinrahimi.github.io/ForgeFlow-AI/
