@@ -1,24 +1,22 @@
-# Security Policy
+# Security policy
 
-ForgeFlow AI is a public Community Showcase. Do not publish real credentials, private user data, runtime databases, submission snapshots, or internal deployment state.
+## Supported versions
+
+The latest release and the default branch receive security fixes.
 
 ## Reporting a vulnerability
 
-Open a minimal security report that describes the affected component and impact without posting secrets, personal data, exploit credentials, or private upstream details. For sensitive disclosure, contact the repository owner privately through GitHub before publishing proof-of-concept material.
+Please do **not** open a public issue for a security vulnerability. Use GitHub's private vulnerability reporting at the repository's **Security → Report a vulnerability** page, or contact the maintainer through the profile link.
 
-## Secrets
+Include:
 
-Never commit values for AI provider keys, GitHub tokens, session secrets, or deployment credentials. Public examples must use empty values or obvious placeholders.
+- affected version or commit
+- impact and attack scenario
+- reproduction steps
+- any suggested mitigation
 
-## AI and automation boundaries
+You should receive an acknowledgement within seven days. Please allow time for a fix before public disclosure.
 
-- AI actions are governed by `propose -> approve -> execute`.
-- Provider credentials remain server-side.
-- GitHub write credentials remain server-side.
-- Automatic progress mutation is opt-in.
-- Repository retrieval is bounded to allowed paths and file sizes.
-- The current architecture uses lexical repository retrieval, not embedding/vector semantic search.
+## Scope
 
-## Public/private separation
-
-The private upstream may contain additional operational configuration and runtime-only state. Public releases are curated rather than mirrored from the private repository.
+This project handles untrusted inputs where noted. Do not include real cookies, API keys, credentials or personal data in issues, PRs, tests or logs.
