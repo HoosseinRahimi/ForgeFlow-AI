@@ -27,6 +27,21 @@ The private upstream remains the active production platform. This public edition
 - Docker Compose one-command startup
 - Backend API tests, frontend build validation, and GitHub Actions CI
 
+## Architecture
+
+```mermaid
+flowchart TD
+  UI[React community cockpit] --> API[FastAPI backend]
+  API --> Health[Project health demo]
+  API --> Search[Bounded public-docs retrieval]
+  API --> Gov[Governed action gate]
+  Gov --> Approve{propose → approve/reject}
+  Approve --> Demo[Demo execution only]
+  API --> Review[Multi-agent review demo]
+```
+
+The community edition keeps all write automation behind the propose → approve/reject gate and reads only public repository documentation. No private team data, runtime credentials, or production write actions are included.
+
 ## Run locally
 
 Requirements: Docker + Docker Compose.
