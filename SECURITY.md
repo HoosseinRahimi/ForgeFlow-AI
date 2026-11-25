@@ -20,3 +20,8 @@ You should receive an acknowledgement within seven days. Please allow time for a
 ## Scope
 
 This project handles untrusted inputs where noted. Do not include real cookies, API keys, credentials or personal data in issues, PRs, tests or logs.
+
+## Architecture boundary
+
+This Community Edition is a privacy-safe public subset of the upstream ForgeFlow AI platform. It deliberately excludes private team databases, production credentials, AI API keys, and server-side GitHub write-automation tokens.
+
